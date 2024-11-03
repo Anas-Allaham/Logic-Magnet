@@ -1,0 +1,13 @@
+1
+5 4
+5
+e e e e 
+m e e e 
+m b e e 
+e m m e 
+x x x e
+0 0
+1 0
+2 3
+3 2
+4 3
