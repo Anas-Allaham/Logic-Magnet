@@ -1,15 +1,5 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-
-
-
-
 
 
 class PuzzleGame extends JFrame {
@@ -20,7 +10,7 @@ class PuzzleGame extends JFrame {
         Level level=new Level(s);
         level.setupUI();
         while(true) {
-            System.out.println("Enter the operation query you want :\n 1)- K-th move (single player)\n 2) restart a game\n 3) stop the game\n 4) compare between two states(single player)\n 5) Print the solution path (single player)\n 6) solve by BFS ");
+            System.out.println("Enter the operation query you want :\n 1)- K-th move (single player)\n 2) restart a game\n 3) stop the game\n 4) compare between two states(single player)\n 5) Print the solution path (single player)\n 6) solve by BFS \n 7) solve by DFS\n");
             int op = console.nextInt();
 
             if (op == 1) {
@@ -55,7 +45,10 @@ class PuzzleGame extends JFrame {
                 level.solution_path();
             }
             if(op==6){
-                level.bfs(level.table,false);
+                level.bfs_algo(level.table,false);
+            }
+            if(op==7){
+                level.dfs_algo(level.table);
             }
         }
     }

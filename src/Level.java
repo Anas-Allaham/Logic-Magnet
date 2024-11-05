@@ -75,8 +75,70 @@ public class Level extends JFrame{
     }
 
 
+    public void dfs_algo(Grid f_grid){
+        Grid init = new Grid(f_grid);
+        Map<Grid, Grid> parent = new HashMap<>();
+        Set<Grid> visited = new HashSet<>();
+        parent.put(f_grid, null);
+            class InnerFunction {
+                boolean find=false;
+                Grid dfs(Grid Grid_cur) {
+                    if(Grid_cur.isSolved()){
+                        find=true;
+                        Grid lst1=null;
+                        lst1=Grid_cur;
+                        return new Grid(lst1);
+                    }
+                    if(find || visited.contains(Grid_cur))return null;
+//                    Static_Methods.print(Grid_cur.cells);
+                    visited.add(Grid_cur);
+                    Grid ret=null;
+                    for (int i = 0; i < table.gridSizeN; i++) {
+                        for (int j = 0; j < table.gridSizeM; j++) {
+                            if(Grid_cur.gridButtons[i][j].getCellType()!=CellType.RED &&Grid_cur.gridButtons[i][j].getCellType()!=CellType.BLUE)continue;
+                            for (int ni = 0; ni < table.gridSizeN; ni++) {
+                                for (int nj = 0; nj < table.gridSizeM; nj++) {
+                                    if (!Grid_cur.isValidMove(i, j, ni, nj)) {
+                                        continue;
+                                    }
 
-    public void bfs(Grid f_grid, boolean www) {
+                                    Grid Grid_child = new Grid(Grid_cur);
+                                    Grid_child.update(i, j, ni, nj);
+                                    Grid ch= dfs(Grid_child);
+                                    if(ch!=null){
+                                        ret=ch;
+                                    }
+                                    parent.put(Grid_child, Grid_cur);
+                                }
+                            }
+                        }
+                    }
+                    return ret;
+                }
+            }
+            InnerFunction tmp=new InnerFunction();
+        Grid final_state=tmp.dfs(f_grid);
+//        System.out.println(final_state);
+//        System.out.println();
+//            return;
+            Grid lst=new Grid(final_state);
+        List<Grid> path = new ArrayList<>();
+        while (lst != null && !lst.equals(init)) {
+            path.add(lst);
+            lst = parent.get(lst);
+        }
+        path.add(init);
+
+        Collections.reverse(path);
+        int i=0;
+        for (Grid grid : path) {
+            System.out.println("Step : "+ ++i );
+            Static_Methods.print(grid.cells);
+            System.out.println();
+        }
+    }
+
+    public void bfs_algo(Grid f_grid, boolean www) {
         Grid init = new Grid(f_grid);
         Deque<Grid> dq = new ArrayDeque<>();
         dq.addLast(f_grid);
@@ -97,6 +159,7 @@ public class Level extends JFrame{
 
             for (int i = 0; i < table.gridSizeN; i++) {
                 for (int j = 0; j < table.gridSizeM; j++) {
+                    if(Grid_cur.gridButtons[i][j].getCellType()!=CellType.RED &&Grid_cur.gridButtons[i][j].getCellType()!=CellType.BLUE)continue;
                     for (int ni = 0; ni < table.gridSizeN; ni++) {
                         for (int nj = 0; nj < table.gridSizeM; nj++) {
                             if (!Grid_cur.isValidMove(i, j, ni, nj)) {
