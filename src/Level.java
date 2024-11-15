@@ -199,5 +199,64 @@ public class Level extends JFrame{
         }
     }
 
+        void UCS(Grid initial){
+            PriorityQueue<Pair>pq=new PriorityQueue<>();
+            Pair p=new Pair(0,initial);
+            pq.add(p);
+            Map<Grid ,Grid>parent=new HashMap<>();
+            Map<Grid,Integer>visited=new HashMap<>();
+            visited.put(initial,0);
+            parent.put(initial,null);
+            while(!pq.isEmpty()){
+                Pair cur=pq.poll();
+                Grid Grid_cur=cur.grid;
+                int weight_cur=cur.weight;
+                Grid lst=new Grid(Grid_cur);
+                if(Grid_cur.isSolved()){
+
+                    List<Grid> path = new ArrayList<>();
+                    while (lst != null && !lst.equals(initial)) {
+                        path.add(lst);
+                        lst = parent.get(lst);
+                    }
+                    path.add(initial);
+
+                    Collections.reverse(path);
+                    int i=0;
+                    for (Grid grid : path) {
+                        System.out.println("Step : "+ ++i + " Cost : "+visited.get(grid));
+                        Static_Methods.print(grid.cells);
+                        System.out.println();
+                    }
+                    break;
+                }
+                for (int i = 0; i < table.gridSizeN; i++) {
+                    for (int j = 0; j < table.gridSizeM; j++) {
+                        if(Grid_cur.gridButtons[i][j].getCellType()!=CellType.RED &&Grid_cur.gridButtons[i][j].getCellType()!=CellType.BLUE)continue;
+                        for (int ni = 0; ni < table.gridSizeN; ni++) {
+                            for (int nj = 0; nj < table.gridSizeM; nj++) {
+                                if (!Grid_cur.isValidMove(i, j, ni, nj)) {
+                                    continue;
+                                }
+
+                                Grid Grid_child = new Grid(Grid_cur);
+                                Grid_child.update(i, j, ni, nj);
+                                int new_weight=weight_cur+(Grid_cur.gridButtons[i][j].getCellType()==CellType.BLUE?1:2);
+                                if (visited.get(Grid_child)==null || visited.get(Grid_child)>new_weight) {
+                                    visited.put(Grid_child,new_weight);
+                                    parent.put(Grid_child, Grid_cur);
+                                    Pair pp=new Pair(new_weight,Grid_child);
+                                    pq.add(pp);
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
 
 }

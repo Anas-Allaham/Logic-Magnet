@@ -10,7 +10,7 @@ class PuzzleGame extends JFrame {
         Level level=new Level(s);
         level.setupUI();
         while(true) {
-            System.out.println("Enter the operation query you want :\n 1)- K-th move (single player)\n 2) restart a game\n 3) stop the game\n 4) compare between two states(single player)\n 5) Print the solution path (single player)\n 6) solve by BFS \n 7) solve by DFS\n");
+            System.out.println("Enter the operation query you want :\n 1)- K-th move (single player)\n 2) restart a game\n 3) stop the game\n 4) compare between two states(single player)\n 5) Print the solution path (single player)\n 6) solve by BFS \n 7) solve by DFS\n 8) solve by UCS\n");
             int op = console.nextInt();
 
             if (op == 1) {
@@ -50,9 +50,14 @@ class PuzzleGame extends JFrame {
             if(op==7){
                 level.dfs_algo(level.table);
             }
+            if(op==8){
+                level.UCS(level.table);
+            }
         }
     }
+
     public static void main(String[] args) {
+
         Scanner console=new Scanner(System.in);
         while(true) {
             System.out.println("Enter the level index to play:");
