@@ -1,0 +1,16 @@
+1
+6 6
+7
+e m e e e b
+e e e e m e
+e r e e e e
+e e x x e e
+e m e e e e
+e e e m e r
+0 2
+2 1
+2 3
+3 1
+4 2
+4 3
+4 5

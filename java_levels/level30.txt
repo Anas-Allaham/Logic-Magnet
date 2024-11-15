@@ -1,0 +1,14 @@
+1
+6 5
+5
+e e m x x
+e e e e x
+e e e e e
+r e e e m
+x e m e e 
+x x b x x
+1 1
+1 3
+2 2
+3 3
+4 1

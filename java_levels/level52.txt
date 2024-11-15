@@ -1,0 +1,12 @@
+1
+5 5
+4
+m e m e e
+e e e e e
+e e e e m
+e e e e e
+r e m e e
+1 2
+2 0
+2 3
+3 2
